@@ -1,0 +1,133 @@
+# @author:spider1998
+前后端分离，接口复用
+1 图片验证码
+    描述：用来生成图片验证码；
+    URL: /api/imagecode?codeid=123&pcodeid=
+    method: GET
+    传入参数：
+        名称：codeid       pcodeid
+        类型：int          int
+        说明：验证码编号    上一个验证码编号
+        是否必须： 是         是
+    返回值：图片二进制数据
+
+2 发送短信验证码
+    描述：验证图片验证码的正确性并验证手机用户
+    URL:/api/phonecode
+    method: POST
+    传入参数：(json)
+        名称：mobile      image_code_id        image_code_text
+        类型：string           string                 string
+        说明：*****************************************************
+        是否必须：是          是                   是
+        {
+            "mobile":"137*******8",
+            "image_code_id":"1**2",
+            "image_code_text":"121***55"
+        }
+    返回值：
+        {
+            "errno": 0
+            "weemsg":"OK"
+        }
+
+3 上传房源
+    描述：客户上传要出租的房源
+    URL: /api/house/info
+    method: POST
+    传入参数：{
+                "title":"",
+                "price":"",
+                "area_id":"1",
+                "address":"",
+                "room_count":"",
+                "acreage":"",
+                "unit":"",
+                "capacity":"",
+                "beds":"",
+                "deposit":"",
+                "min_days":"",
+                "max_days":"",
+                "facility":["7","8"]
+                }
+    正常返回值：{
+        "errno":0
+        "errmsg":"OK"
+        "house_id":""
+    }
+    异常返回值：{
+        "errno":"4001
+        "weemsg":
+    }
+    ajax:当作js客户端发送请求，局部刷新只是它的一方面应用。异步方式，不会阻塞下文js运行
+    异步：解决同步代码阻塞问题
+    jQuery表单插件：对form表单的二次封装，不改变原始数据，追加补充回调函数,form格式
+
+4 获取房源
+    同3
+    URL:/api/house/my
+    method: GET
+
+
+5 房屋列表
+    URL:/api/house/list
+    method: GET
+    传入参数:
+        参数名·        类型          是否必须        default
+        start_date       str              否             *
+        end_date         str              否             *
+        area_id          str              否             *
+        sort_key         str              否         默认时间排序
+        page             int              否         默认第一页
+    返回值：
+        {
+            "errno":"0",
+            "errmsg":"OK",
+            "house":{
+                [
+                {
+                "house_id"
+                "house_title"
+                "price"
+                "address"：地理位置
+                "room_counts"：出租数量
+                "order_counts":入住次数
+                "user_avatar":用户图像
+                "house_img_url":主页图片
+            },
+            {
+                "house_id"
+                "house_title"
+                "price"
+                "address"：地理位置
+                "room_counts"：出租数量
+                "order_counts":入住次数
+                "user_avatar":用户图像
+                "house_img_url":主页图片
+            },
+                ],
+                "total_page":总页数
+            }
+
+        mysql 增加行号查询
+    select * from
+    (select  @rownum:=@rownum+1 as rownum,b.* from (select @rownum:=0) a,
+    (select distinct hi_house_id,hi_title,hi_price from ih_house_info order by
+    hi_price desc) b)
+    t where rownum between 3 and 5;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
